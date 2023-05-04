@@ -9,7 +9,7 @@ import Foundation
 
 public class interface {
 
-    public private(set) var name = "Interface"
+    public private(set) var name = "interface"
 
     public init() {
     }
