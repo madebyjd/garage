@@ -8,9 +8,9 @@
     <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fjdanek4%2Fgarage%2Fbadge%3Ftype%3Dplatforms" alt="Platforms">
    </a>
    <br/>
-<!--   <a href="https://github.com/SvenTiigi/WhatsNewKit/actions/workflows/build_and_test.yml">-->
-<!--       <img src="https://github.com/SvenTiigi/WhatsNewKit/actions/workflows/build_and_test.yml/badge.svg" alt="Build and Test Status">-->
-<!--   </a>-->
+   <a href="https://github.com/jdanek4/garage/actions/workflows/build_and_test.yml">
+       <img src="https://github.com/jdanek4/garage/actions/workflows/build_and_test.yml/badge.svg" alt="Build and Test Status">
+   </a>
    <a href="https://twitter.com/jonathandanek/">
       <img src="https://img.shields.io/badge/Twitter-@JonathanDanek-blue.svg?style=flat" alt="Twitter">
    </a>
