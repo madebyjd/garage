@@ -9,12 +9,18 @@ let package = Package(
         .library(
             name: "garage",
             targets: ["garage"]),
+        .library(
+            name: "interface",
+            targets: ["interface"]),
     ],
     dependencies: [
     ],
     targets: [
         .target(
             name: "garage",
+            dependencies: []),
+        .target(
+            name: "interface",
             dependencies: []),
         .testTarget(
             name: "garageTests",
