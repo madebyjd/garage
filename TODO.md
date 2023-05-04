@@ -10,5 +10,6 @@ interface
 - buttons
 - button styles
 
-github
+repo
 - auto tag on commit
+- add swift-format and commit hook
