@@ -42,10 +42,6 @@ Clone the repo and copy interesting files and components into your project. Ensu
 
 ## Components
 
-### Garage
-
-Sample library that is just a placeholder. Mostly empty and just used to test the repo. Also included is `garageTests` which is a mono-target for all unit tests for the garage repo.
-
 ### Interface
 
 Library of interesting user interface components and full app screens.
@@ -54,10 +50,13 @@ Library of interesting user interface components and full app screens.
 
 Library for creating, manipulating, and using dates and times.
 
+### Features
+
+Library of app features to enhance applications.
+
 ## Todo
 
 features
-- versions
 - whats new screen
 - feature flags
 - logging
