@@ -1,10 +1,11 @@
 # Todo
 
-## New Libraries
-- extensions
-- featureflags
-
-## New Features
+features
+- versions
+- whats new screen
+- feature flags
+- logging
+- analytics
 
 interface
 - buttons
