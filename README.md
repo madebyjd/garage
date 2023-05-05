@@ -66,8 +66,10 @@ features
 interface
 - buttons
 - button styles
-- emoji
-- above keyboard bar
+- emoji view
+- above keyboard bar view
+- json form
+- markdown view
 
 extensions
 - swiftui.view
