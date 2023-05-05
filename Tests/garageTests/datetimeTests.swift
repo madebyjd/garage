@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import datetime
+@testable import garage
 
 final class datetimeTests: XCTestCase {
 

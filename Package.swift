@@ -12,25 +12,16 @@ let package = Package(
     products: [
         .library(
             name: "garage",
-            targets: ["garage", "interface", "datetime", "extensions"]),
+            targets: ["garage"]),
     ],
     dependencies: [
     ],
     targets: [
         .target(
-            name: "extensions",
-            dependencies: []),
-        .target(
             name: "garage",
             dependencies: []),
-        .target(
-            name: "interface",
-            dependencies: []),
-        .target(
-            name: "datetime",
-            dependencies: ["extensions"]),
         .testTarget(
             name: "garageTests",
-            dependencies: ["garage", "interface", "datetime", "extensions"]),
+            dependencies: ["garage"]),
     ]
 )

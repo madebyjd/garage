@@ -32,7 +32,7 @@ To integrate using Apple's [Swift Package Manager](https://swift.org/package-man
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/jdanek4/garage.git", from: "1.0.0")
+    .package(url: "https://github.com/jdanek4/garage.git", .branch("main"))
 ]
 ```
 
@@ -40,7 +40,7 @@ dependencies: [
 
 Clone the repo and copy interesting files and components into your project. Ensure you copy all files and their dependencies. You will also need to delete the sub-package import statements.
 
-## Libraries
+## Components
 
 ### Garage
 
