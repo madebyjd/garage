@@ -21,4 +21,10 @@ extension Date {
         return Calendar.current.component(.year, from: self)
     }
 
+    public var dayName: String {
+        let dateFormatter = DateFormatter()
+        let format = "EEEE"
+        dateFormatter.setLocalizedDateFormatFromTemplate(format)
+        return dateFormatter.string(from: self)
+    }
 }

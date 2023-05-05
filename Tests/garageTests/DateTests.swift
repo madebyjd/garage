@@ -38,4 +38,12 @@ final class DateTests: XCTestCase {
         let difference = sut.difference(to: future)
         XCTAssert(difference.isClose(to: 924, buffer: 10))
     }
+
+    func testDateExtensions() {
+        let sut = Date(timeIntervalSinceReferenceDate: TimeInterval(699921248.705154))
+        XCTAssertEqual(sut.day, 7)
+        XCTAssertEqual(sut.year, 2023)
+        XCTAssertEqual(sut.month, 3)
+        XCTAssertEqual(sut.dayName, "Tuesday")
+    }
 }
