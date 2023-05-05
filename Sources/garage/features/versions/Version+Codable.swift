@@ -27,15 +27,11 @@ extension Version: Codable {
     }
 }
 
-/// The method to be used when decoding a Version
 public enum DecodingMethod {
-    /// Decode using the strict initializer
     case strict
-    /// Decode using the tolerant initializer
     case tolerant
 }
 
 public extension CodingUserInfoKey {
-    /// A value indicating what decoding method to use: tolerant or strict. Default value is strict
     static let decodingMethod = CodingUserInfoKey(rawValue: "dev.mxcl.Version.decodingMethod")!
 }

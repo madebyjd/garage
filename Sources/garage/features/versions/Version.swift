@@ -5,31 +5,18 @@
 //  Created by Jonathan Danek on 5/4/23.
 //
 
-/**
- A struct representing a “semver” version, that is: a Semantic Version.
- - SeeAlso: https://semver.org
- */
 public struct Version {
-    /// The major version.
+
     public let major: Int
 
-    /// The minor version.
     public let minor: Int
 
-    /// The patch version.
     public let patch: Int
 
-    /// The pre-release identifiers (if any).
     public let prereleaseIdentifiers: [String]
 
-    /// The build metadatas (if any).
     public let buildMetadataIdentifiers: [String]
 
-    /**
-     Create a version object.
-     - Note: Integers are made absolute since negative integers are not allowed, yet it is conventional Swift to take `Int` over `UInt` where possible.
-     - Remark: This initializer variant provided for more readable code when initializing with static integers.
-     */
     @inlinable
     public init(_ major: Int, _ minor: Int, _ patch: Int, pre: [String] = [], build: [String] = []) {
         self.major = abs(major)
@@ -44,31 +31,21 @@ public struct Version {
         }
     }
 
-    /**
-     Creates a version object.
-     - Note: Integers are made absolute since negative integers are not allowed, yet it is conventional Swift to take `Int` over `UInt` where possible.
-     - Remark: This initializer variant provided when it would be more readable than the nameless variant.
-     */
     @inlinable
     public init(major: Int, minor: Int, patch: Int, prereleaseIdentifiers: [String] = [], buildMetadataIdentifiers: [String] = []) {
         self.init(major, minor, patch, pre: prereleaseIdentifiers, build: buildMetadataIdentifiers)
     }
 
-    /// Represents `0.0.0`
+
     public static let null = Version(0,0,0)
 }
 
 extension Version: LosslessStringConvertible {
-    /**
-     Creates a version object from a string.
-     - Note: Returns `nil` if the string is not a valid semantic version.
-     - Parameter string: The string to parse.
-     */
+
     public init?(_ string: String) {
     #if compiler(>=5)
         self.init(internal: string)
     #else
-        //NOTE code duplicated in self.init(internal:); no other way to support Swift 4.2
 
         let prereleaseStartIndex = string.firstIndex(of: "-")
         let metadataStartIndex = string.firstIndex(of: "+")
@@ -106,7 +83,6 @@ extension Version: LosslessStringConvertible {
     }
 
     private init?<S: StringProtocol>(internal string: S) {
-        //NOTE code duplicated in self.init(_:); no other way to support Swift 4.2
 
         let prereleaseStartIndex = string.firstIndex(of: "-")
         let metadataStartIndex = string.firstIndex(of: "+")
@@ -138,7 +114,6 @@ extension Version: LosslessStringConvertible {
     }
 #endif
 
-    /// Returns the lossless string representation of this semantic version.
     public var description: String {
         var base = "\(major).\(minor).\(patch)"
         if !prereleaseIdentifiers.isEmpty {
@@ -152,12 +127,7 @@ extension Version: LosslessStringConvertible {
 }
 
 public extension Version {
-    /**
-     Creates a version object.
-     - Remark: This initializer variant uses a more tolerant parser, eg. `10.1` parses to `Version(10,1,0)`.
-     - Remark: This initializer will not recognizer builds-metadata-identifiers.
-     - Remark: Tolerates an initial `v` character.
-     */
+    
     init?<S: StringProtocol>(tolerant: S) {
         let string = tolerant.dropFirst(tolerant.first == "v" ? 1 : 0)
         let prereleaseStartIndex = string.firstIndex(of: "-")
