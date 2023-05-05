@@ -46,9 +46,26 @@ Sample library that is just a placeholder. Mostly empty and just used to test th
 
 Library of interesting user interfaces.
 
-## DateTime
+### DateTime
 
 Library for creating, manipulating, and using dates and times.
+
+## Todo
+
+features
+- versions
+- whats new screen
+- feature flags
+- logging
+- analytics
+
+interface
+- buttons
+- button styles
+
+repo
+- auto tag on commit
+- add swift-format and commit hook
 
 ## License
 
