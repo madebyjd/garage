@@ -63,6 +63,10 @@ features
 - logging
 - analytics
 
+persistence
+- requires codable struct and identifiable
+- store in user defaults, flat file, and cached database
+
 interface
 - buttons
 - button styles
@@ -73,6 +77,7 @@ interface
 
 extensions
 - swiftui.view
+- color/nscolor/uicolor
 
 repo
 - auto tag on commit
