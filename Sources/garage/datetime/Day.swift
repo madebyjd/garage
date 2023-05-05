@@ -84,7 +84,7 @@ extension Day: Identifiable, Sendable, Hashable, Codable {
     }
 }
 
-public extension Day {
+extension Day {
     public func adding(months: Int = 0, days: Int = 0, years: Int = 0) -> Day? {
 
         guard let date = makeDate() else { return nil }
