@@ -36,6 +36,10 @@ dependencies: [
 ]
 ```
 
+### Ad-hoc
+
+Clone the repo and copy interesting files and components into your project. Ensure you copy all files and their dependencies. You will also need to delete the sub-package import statements.
+
 ## Libraries
 
 ### Garage
@@ -44,7 +48,7 @@ Sample library that is just a placeholder. Mostly empty and just used to test th
 
 ### Interface
 
-Library of interesting user interfaces.
+Library of interesting user interface components and full app screens.
 
 ### DateTime
 
@@ -62,6 +66,11 @@ features
 interface
 - buttons
 - button styles
+- emoji
+- above keyboard bar
+
+extensions
+- swiftui.view
 
 repo
 - auto tag on commit
