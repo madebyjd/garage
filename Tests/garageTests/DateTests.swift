@@ -1,5 +1,5 @@
 //
-//  datetimeTests.swift
+//  DateTests.swift
 //  
 //
 //  Created by Jonathan Danek on 5/3/23.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import garage
 
-final class datetimeTests: XCTestCase {
+final class DateTests: XCTestCase {
 
     func testDayComponents() {
         let sut = Day(date: Date(timeIntervalSinceReferenceDate: TimeInterval(699921248.705154)))
