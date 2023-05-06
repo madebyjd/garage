@@ -15,11 +15,14 @@ let package = Package(
             targets: ["garage"])
     ],
     dependencies: [
+        .package(name: "SLLog", url: "https://github.com/shial4/LogSwift.git", branch: "master")
     ],
     targets: [
         .target(
             name: "garage",
-            dependencies: []),
+            dependencies: [
+                "SLLog",
+            ],
             resources: [
                 .process("first-names.txt"),
                 .process("last-names.txt"),

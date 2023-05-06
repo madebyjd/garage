@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "logswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/shial4/LogSwift.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "d8cded7fa03270655bee79304cdabb4a341027f9"
+      }
+    }
+  ],
+  "version" : 2
+}

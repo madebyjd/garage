@@ -59,7 +59,6 @@ Library of app features to enhance applications.
 features
 - whats new screen
 - feature flags
-- logging
 - analytics
 
 persistence
