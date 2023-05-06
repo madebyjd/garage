@@ -49,7 +49,7 @@ extension Color {
 extension Color {
 
     public static var random: Color {
-        Color.all.randomElement() ?? .red
+        Color.all.randomElement() ?? .white
     }
 
     public static var all: [Color] {
@@ -67,7 +67,7 @@ extension Color {
     }
 
     public static var randomSystem: Color {
-        Color.all.randomElement() ?? .red
+        Color.all.randomElement() ?? .white
     }
 
     public static var allSystem: [Color] {
@@ -111,4 +111,23 @@ extension Color {
         )
     }
 
+    var components: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)? {
+        guard let components = self.cgColor?.components, components.count == 4 else { return nil }
+        let red = components[0]
+        let green = components[1]
+        let blue = components[2]
+        let alpha = components[3]
+
+        return (red: red, green: green, blue: blue, alpha: alpha)
+    }
+
+    var isBright: Bool {
+        if let (red: red, green: green, blue: blue, alpha: _) = self.components {
+            let brightness = ((red * 299.0) + (green * 587.0) + (blue * 114.0)) / 1000.0
+
+            return brightness > 0.3
+        } else {
+            return false
+        }
+    }
 }
