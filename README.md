@@ -77,6 +77,10 @@ extensions
 - swiftui.view
 - color/nscolor/uicolor
 
+apis
+- get, put, post, delete
+- service based static requests
+
 repo
 - auto tag on commit
 - add swift-format and commit hook
