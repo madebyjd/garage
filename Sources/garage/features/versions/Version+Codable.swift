@@ -16,7 +16,8 @@ extension Version: Codable {
             initializer = Version.init
         }
         guard let v = initializer(s) else {
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid semantic version")
+            throw DecodingError.dataCorruptedError(
+                in: container, debugDescription: "Invalid semantic version")
         }
         self = v
     }
@@ -32,6 +33,7 @@ public enum DecodingMethod {
     case tolerant
 }
 
-public extension CodingUserInfoKey {
-    static let decodingMethod = CodingUserInfoKey(rawValue: "dev.mxcl.Version.decodingMethod")!
+extension CodingUserInfoKey {
+    public static let decodingMethod = CodingUserInfoKey(
+        rawValue: "dev.mxcl.Version.decodingMethod")!
 }

@@ -1,11 +1,12 @@
 //
 //  DateTests.swift
-//  
+//
 //
 //  Created by Jonathan Danek on 5/3/23.
 //
 
 import XCTest
+
 @testable import garage
 
 final class DateTests: XCTestCase {
@@ -25,7 +26,6 @@ final class DateTests: XCTestCase {
         let futureDayDifference = sut.difference(to: futureDay)
         let futureYear = sut.adding(years: 1)!
         let futureYearDifference = sut.difference(to: futureYear)
-
 
         XCTAssert(futureMonthDifference.isClose(to: 30))
         XCTAssert(futureDayDifference == 1)

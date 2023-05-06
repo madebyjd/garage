@@ -1,11 +1,12 @@
 //
 //  VersionTests.swift
-//  
+//
 //
 //  Created by Jonathan Danek on 5/4/23.
 //
 
 import XCTest
+
 @testable import garage
 
 final class VersionTests: XCTestCase {

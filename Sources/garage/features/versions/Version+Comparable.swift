@@ -17,7 +17,8 @@ extension Version: Hashable {
 extension Version: Equatable {
     /// Compares the provided versions *without* comparing any build-metadata
     public static func == (lhs: Version, rhs: Version) -> Bool {
-        return lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch && lhs.prereleaseIdentifiers == rhs.prereleaseIdentifiers
+        return lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch
+            && lhs.prereleaseIdentifiers == rhs.prereleaseIdentifiers
     }
 }
 
@@ -35,11 +36,11 @@ extension Version: Comparable {
         }
 
         guard lhs.prereleaseIdentifiers.count > 0 else {
-            return false // Non-prerelease lhs >= potentially prerelease rhs
+            return false  // Non-prerelease lhs >= potentially prerelease rhs
         }
 
         guard rhs.prereleaseIdentifiers.count > 0 else {
-            return true // Prerelease lhs < non-prerelease rhs
+            return true  // Prerelease lhs < non-prerelease rhs
         }
 
         let zippedIdentifiers = zip(lhs.prereleaseIdentifiers, rhs.prereleaseIdentifiers)
@@ -52,10 +53,10 @@ extension Version: Comparable {
             let typedRhsIdentifier: Any = Int(rhsPrereleaseIdentifier) ?? rhsPrereleaseIdentifier
 
             switch (typedLhsIdentifier, typedRhsIdentifier) {
-                case let (int1 as Int, int2 as Int): return int1 < int2
-                case let (string1 as String, string2 as String): return string1 < string2
-                case (is Int, is String): return true // Int prereleases < String prereleases
-                case (is String, is Int): return false
+            case let (int1 as Int, int2 as Int): return int1 < int2
+            case let (string1 as String, string2 as String): return string1 < string2
+            case (is Int, is String): return true  // Int prereleases < String prereleases
+            case (is String, is Int): return false
             default:
                 fatalError("impossi-op")
             }
@@ -64,4 +65,3 @@ extension Version: Comparable {
         return lhs.prereleaseIdentifiers.count < rhs.prereleaseIdentifiers.count
     }
 }
-

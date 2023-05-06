@@ -1,6 +1,6 @@
 //
 //  Day.swift
-//  
+//
 //
 //  Created by Jonathan Danek on 5/3/23.
 //
@@ -92,11 +92,12 @@ extension Day {
         components.month = months
         components.day = days
         components.year = years
-        guard let newDate = Calendar.current.date(byAdding: components, to: date) else { return nil }
+        guard let newDate = Calendar.current.date(byAdding: components, to: date) else {
+            return nil
+        }
 
         return Day(date: newDate)
     }
-
 
     /// - Returns: Number of days between the days.
     public func difference(to day: Day) -> Int {
