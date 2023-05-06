@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Jonathan Danek on 5/4/23.
 //
@@ -57,5 +57,3 @@ extension View {
         AnyView(self)
     }
 }
-
-
