@@ -6,13 +6,13 @@ import PackageDescription
 let package = Package(
     name: "garage",
     platforms: [
-        .iOS(.v14),
-        .macOS(.v12)
+        .iOS(.v15),
+        .macOS(.v12),
     ],
     products: [
         .library(
             name: "garage",
-            targets: ["garage"]),
+            targets: ["garage"])
     ],
     dependencies: [
     ],
@@ -20,6 +20,13 @@ let package = Package(
         .target(
             name: "garage",
             dependencies: []),
+            resources: [
+                .process("first-names.txt"),
+                .process("last-names.txt"),
+                .process("streets.txt"),
+                .process("lorem.txt"),
+                .process("countries.csv"),
+            ]),
         .testTarget(
             name: "garageTests",
             dependencies: ["garage"]),
