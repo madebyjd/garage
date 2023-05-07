@@ -82,4 +82,13 @@ extension ExtensionsTests {
         let sut = URL.documents
         XCTAssert(FileManager.default.fileExists(atPath: sut.relativePath))
     }
+
+    func testDeletingPathComponents() {
+        var sut = URL(string: "https://github.com/jdanek4/garage")
+        XCTAssertNotNil(sut)
+        let baseSut = sut!.deletingAllPathComponents()
+        XCTAssertEqual(baseSut.absoluteString, "https://github.com/")
+        sut?.deleteAllPathComponents()
+        XCTAssertEqual(sut!.absoluteString, "https://github.com/")
+    }
 }
