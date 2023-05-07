@@ -39,11 +39,37 @@ final class DateTests: XCTestCase {
         XCTAssert(difference.isClose(to: 924, buffer: 10))
     }
 
+    func testDayToFuture() {
+        let sut = Day(month: 01, day: 01, year: 2023)
+        let futureSut = sut.adding(days: 48)
+        XCTAssertNotNil(futureSut)
+        let days = sut.daysTo(day: futureSut!)
+        XCTAssertEqual(days.count, 50)
+        XCTAssert(days.contains(sut))
+        XCTAssert(days.contains(futureSut!))
+    }
+
     func testDateExtensions() {
         let sut = Date(timeIntervalSinceReferenceDate: TimeInterval(699921248.705154))
         XCTAssertEqual(sut.day, 7)
         XCTAssertEqual(sut.year, 2023)
         XCTAssertEqual(sut.month, 3)
         XCTAssertEqual(sut.dayName, "Tuesday")
+    }
+
+    func testMondayDayOfWeek() {
+        let date = Date(timeIntervalSinceReferenceDate: TimeInterval(699821248.705154))
+        let sut = Day(date: date)
+        XCTAssertEqual(sut.dayOfWeek(style: .short), "M")
+        XCTAssertEqual(sut.dayOfWeek(style: .medium), "Mon")
+        XCTAssertEqual(sut.dayOfWeek(style: .full), "Monday")
+    }
+
+    func testTuesdayDayOfWeek() {
+        let date = Date(timeIntervalSinceReferenceDate: TimeInterval(699921248.705154))
+        let sut = Day(date: date)
+        XCTAssertEqual(sut.dayOfWeek(style: .short), "T")
+        XCTAssertEqual(sut.dayOfWeek(style: .medium), "Tue")
+        XCTAssertEqual(sut.dayOfWeek(style: .full), "Tuesday")
     }
 }

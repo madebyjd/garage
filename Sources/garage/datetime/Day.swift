@@ -84,7 +84,67 @@ extension Day: Identifiable, Sendable, Hashable, Codable {
     }
 }
 
+extension Day: Comparable, Equatable {
+
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.day == rhs.day &&
+            lhs.month == rhs.month &&
+            lhs.year == rhs.year
+    }
+
+    public static func < (lhs: Day, rhs: Day) -> Bool {
+        guard let lhsDate = lhs.makeDate() else {
+            return true
+        }
+        guard let rhsDate = rhs.makeDate() else {
+            return false
+        }
+
+        return lhsDate < rhsDate
+    }
+}
+
 extension Day {
+
+    public enum Style {
+        case short
+        case medium
+        case full
+    }
+
+    public func dayOfWeek(style: Day.Style = .medium) -> String {
+        let dateFormatter = DateFormatter()
+        var format: String
+        switch style {
+        case .short:
+            format = "EEEEE"
+        case .medium:
+            format = "EEE"
+        case .full:
+            format = "EEEE"
+        }
+        dateFormatter.setLocalizedDateFormatFromTemplate(format)
+        guard let date = self.makeDate() else { return "" }
+        return dateFormatter.string(from: date)
+    }
+}
+
+extension Day {
+
+    public func daysTo(day: Day) -> [Day] {
+        var smallest = self < day ? self : day
+        let largest = self > day ? self : day
+        var days: [Day] = []
+        var iterDay: Day = smallest
+        while iterDay < largest {
+            if let nextDay = iterDay.adding(days: 1) {
+                iterDay = nextDay
+            }
+            days.append(iterDay)
+        }
+
+        return days
+    }
     public func adding(months: Int = 0, days: Int = 0, years: Int = 0) -> Day? {
 
         guard let date = makeDate() else { return nil }
