@@ -56,4 +56,12 @@ extension View {
     public func anyView() -> AnyView {
         AnyView(self)
     }
+
+    public func isHidden(_ hidden: Bool) -> AnyView {
+        if hidden {
+            return EmptyView().anyView()
+        } else {
+            return self.anyView()
+        }
+    }
 }

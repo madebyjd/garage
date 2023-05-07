@@ -134,9 +134,9 @@ extension Day {
     public func daysTo(day: Day) -> [Day] {
         var smallest = self < day ? self : day
         let largest = self > day ? self : day
-        var days: [Day] = []
+        var days: [Day] = [smallest]
         var iterDay: Day = smallest
-        while iterDay < largest {
+        while iterDay <= largest {
             if let nextDay = iterDay.adding(days: 1) {
                 iterDay = nextDay
             }
