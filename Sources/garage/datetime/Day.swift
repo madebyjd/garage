@@ -9,6 +9,14 @@ import Foundation
 
 public struct Day {
 
+    // MARK: - Enums
+
+    public enum Style {
+        case short
+        case medium
+        case full
+    }
+
     // MARK: - Properties
     public var month: Int
     public var day: Int
@@ -63,6 +71,27 @@ extension Day: Identifiable, Sendable, Hashable, Codable {
         String(format: "%02d-%02d-%02d", year, month, day)
     }
 
+    public func formatted(style: Style) -> String {
+        switch style {
+        case .short:
+            return String(format: "%02d-%02d-%02d", year, month, day)
+        case .medium:
+            guard let date = self.makeDate() else { return "" }
+            var string = date.formatted(date: .abbreviated, time: .omitted)
+            if self == Day.today {
+                string = "Today, " + string
+            }
+            return string
+        case .full:
+            guard let date = self.makeDate() else { return "" }
+            var string = date.formatted(date: .long, time: .omitted)
+            if self == Day.today {
+                string = "Today, " + string
+            }
+            return string
+        }
+    }
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: Day.CodingKeys.self)
         try container.encode(month, forKey: .month)
@@ -106,10 +135,20 @@ extension Day: Comparable, Equatable {
 
 extension Day {
 
-    public enum Style {
-        case short
-        case medium
-        case full
+    public func nameOfMonth(style: Day.Style = .medium) -> String {
+        let dateFormatter = DateFormatter()
+        var format: String
+        switch style {
+        case .short:
+            format = "MMMMM"
+        case .medium:
+            format = "MMM"
+        case .full:
+            format = "MMMM"
+        }
+        dateFormatter.setLocalizedDateFormatFromTemplate(format)
+        guard let date = self.makeDate() else { return "" }
+        return dateFormatter.string(from: date)
     }
 
     public func dayOfWeek(style: Day.Style = .medium) -> String {
