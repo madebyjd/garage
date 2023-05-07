@@ -38,7 +38,7 @@ dependencies: [
 
 ### Ad-hoc
 
-Clone the repo and copy interesting files and components into your project. Ensure you copy all files and their dependencies. You will also need to delete the sub-package import statements.
+Clone the repo and copy interesting files and components into your project. Ensure you copy all files and their dependencies.
 
 ## Components
 
@@ -60,6 +60,7 @@ features
 - whats new screen
 - feature flags
 - analytics
+- currency: store value, convert locale, or format display strings
 
 persistence
 - requires codable struct and identifiable
