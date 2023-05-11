@@ -32,6 +32,16 @@ final class DateTests: XCTestCase {
         XCTAssert(futureYearDifference.isClose(to: 365))
     }
 
+    func testDayNameOfMonth() {
+        let sut = Day(month: 1, day: 1, year: 2023)
+        let short = sut.nameOfMonth(style: .short)
+        let medium = sut.nameOfMonth(style: .medium)
+        let full = sut.nameOfMonth(style: .full)
+        XCTAssertEqual(short, "J")
+        XCTAssertEqual(medium, "Jan")
+        XCTAssertEqual(full, "January")
+    }
+
     func testDayComplex() {
         let sut = Day(date: .now)
         let future = sut.adding(months: 6, days: 14, years: 2)!
