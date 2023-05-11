@@ -9,25 +9,25 @@ import Foundation
 
 extension Fake.Person {
 
-    static func randomFirstName() -> String {
+    public static func randomFirstName() -> String {
         let listLoader = try? ListLoader(name: "first-names", type: "txt")
         return listLoader?.list.randomElement() ?? ""
     }
 
-    static func randomLastName() -> String {
+    public static func randomLastName() -> String {
         let csvLoader = try? ListLoader(name: "first-names", type: "txt")
         return csvLoader?.list.randomElement() ?? ""
     }
 
-    static func randomName() -> String {
+    public static func randomName() -> String {
         "\(randomFirstName()) \(randomLastName())"
     }
 
-    static func randomAge() -> Int {
+    public static func randomAge() -> Int {
         Fake.Number.random(min: 3, max: 99)
     }
 
-    static func randomAddress() -> String {
+    public static func randomAddress() -> String {
         let number = Fake.Number.random(in: 111..<9999)
         let direction = ["North", "West", "South", "East", ""].shuffled()[0]
         let listLoader = try? ListLoader(name: "streets", type: "txt")
@@ -38,7 +38,7 @@ extension Fake.Person {
             .joined(separator: " ")
     }
 
-    static func randomCountry() -> (String, String) {
+    public static func randomCountry() -> (String, String) {
         let csvLoader = try? CSVLoader(name: "countries", type: "csv")
         let key = csvLoader?.list.keys.shuffled().first ?? ""
         let code = csvLoader?.get(key: key, value: "code") ?? ""

@@ -9,7 +9,7 @@ import Foundation
 
 extension Fake.Text {
 
-    static func loremIpsumSentences(number: Int = 20) -> String {
+    public static func loremIpsumSentences(number: Int = 20) -> String {
         let listLoader = try? ListLoader(name: "lorem", type: "txt")
         return listLoader?.list
             .shuffled()
@@ -23,7 +23,7 @@ extension Fake.Text {
             .joined(separator: " ") ?? ""
     }
 
-    static func loremIpsumHeadline(number: Int = 3) -> String {
+    public static func loremIpsumHeadline(number: Int = 3) -> String {
         let listLoader = try? ListLoader(name: "lorem", type: "txt")
         return listLoader?.list
             .shuffled()
@@ -32,13 +32,5 @@ extension Fake.Text {
                 return word.capitalized
             }
             .joined(separator: " ") ?? ""
-    }
-}
-
-extension ArraySlice {
-    func chunked(into size: Int) -> [[Element]] {
-        return stride(from: 0, to: count, by: size).map {
-            Array(self[$0..<Swift.min($0 + size, count)])
-        }
     }
 }

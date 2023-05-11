@@ -29,7 +29,7 @@ public class CSVLoader {
         try load()
     }
 
-    func load() throws {
+    public func load() throws {
 
         let content = try String(contentsOfFile: url.relativePath)
 
@@ -51,7 +51,7 @@ public class CSVLoader {
             }
     }
 
-    func get(key: String, value: String) -> String {
+    public func get(key: String, value: String) -> String {
         guard let index = headers.lastIndex(of: value) else { return "" }
 
         return self.list[key]?[index] ?? ""
