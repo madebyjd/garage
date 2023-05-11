@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "SLLog", url: "https://github.com/shial4/LogSwift.git", branch: "master"),
-        .package(url: "https://github.com/groue/Semaphore.git", branch: "main")
+        .package(url: "https://github.com/groue/Semaphore.git", branch: "main"),
     ],
     targets: [
         .target(

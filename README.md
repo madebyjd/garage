@@ -71,7 +71,6 @@ features
 - currency: store value, convert locale, or format display strings
 
 persistence
-- requires codable struct and identifiable
 - store in user defaults, flat file, and cached database
 
 interface
