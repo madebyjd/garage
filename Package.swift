@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "garage",
     platforms: [
-        .iOS(.v15),
-        .macOS(.v12),
+        .iOS(.v16),
+        .macOS(.v13),
     ],
     products: [
         .library(
@@ -15,13 +15,15 @@ let package = Package(
             targets: ["garage"])
     ],
     dependencies: [
-        .package(name: "SLLog", url: "https://github.com/shial4/LogSwift.git", branch: "master")
+        .package(name: "SLLog", url: "https://github.com/shial4/LogSwift.git", branch: "master"),
+        .package(url: "https://github.com/groue/Semaphore.git", branch: "main")
     ],
     targets: [
         .target(
             name: "garage",
             dependencies: [
                 "SLLog",
+                "Semaphore",
             ],
             resources: [
                 .process("first-names.txt"),

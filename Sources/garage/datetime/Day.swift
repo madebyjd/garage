@@ -113,6 +113,8 @@ extension Day: Identifiable, Sendable, Hashable, Codable {
     }
 }
 
+extension Day: Storable {}
+
 extension Day: Comparable, Equatable {
 
     public static func == (lhs: Self, rhs: Self) -> Bool {
