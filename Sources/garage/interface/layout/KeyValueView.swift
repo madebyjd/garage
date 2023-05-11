@@ -10,7 +10,13 @@ import SwiftUI
 struct KeyValueView: View {
     var key: String
     var value: String
-    var color: Color = .randomSystem
+    var color: Color
+
+    public init(key: String, value: String, color: Color = .randomSystem) {
+        self.key = key
+        self.value = value
+        self.color = color
+    }
 
     var body: some View {
         VStack {

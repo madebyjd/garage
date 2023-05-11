@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct Tag {
+public struct Tag {
 
-    var title: String
-    var color: Color = Color.random
+    public var title: String
+    public var color: Color = Color.random
 }

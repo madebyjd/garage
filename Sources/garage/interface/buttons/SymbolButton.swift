@@ -7,23 +7,23 @@
 
 import SwiftUI
 
-struct SymbolButton: View {
+public struct SymbolButton: View {
 
     var content: any View
     var action: () -> Void
 
-    init(systemName: String, action: @escaping () -> Void) {
+    public init(systemName: String, action: @escaping () -> Void) {
         content = Image(systemName: systemName)
-            .resizable().anyView()
+            .font(.largeTitle).anyView()
         self.action = action
     }
 
-    init(emoji: String, action: @escaping () -> Void) {
-        content = Text(emoji).anyView()
+    public init(emoji: String, action: @escaping () -> Void) {
+        content = Text(emoji).font(.largeTitle).anyView()
         self.action = action
     }
 
-    var body: some View {
+    public var body: some View {
         content
             .font(.title)
             .anyView()

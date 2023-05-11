@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct DateScrollView: View {
+public struct DateScrollView: View {
 
     @Binding var selectedDay: Day
 
     @State var dates: [Day]
 
-    init(selectedDay: Binding<Day>) {
+    public init(selectedDay: Binding<Day>) {
         self._selectedDay = selectedDay
 
         if
@@ -26,7 +26,7 @@ struct DateScrollView: View {
         }
     }
 
-    var body: some View {
+    public var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { proxy in
                 HStack(spacing: 0.0) {

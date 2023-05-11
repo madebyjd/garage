@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct TagView: View {
+
     var tag: Tag
+
+    public init(tag: Tag) {
+        self.tag = tag
+    }
 
     var body: some View {
         Text(tag.title)

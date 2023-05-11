@@ -7,10 +7,15 @@
 
 import SwiftUI
 
-struct TagsView: View {
+public struct TagsView: View {
+
     var tags: [Tag]
 
-    var body: some View {
+    public init(tags: [Tag]) {
+        self.tags = tags
+    }
+
+    public var body: some View {
         HStack {
             ForEach(tags, id: \.title) { tag in
                 TagView(tag: tag)
