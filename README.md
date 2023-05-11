@@ -54,6 +54,14 @@ Library for creating, manipulating, and using dates and times.
 
 Library of app features to enhance applications.
 
+### Persistence
+
+Basic functionality to persist information on disk. Conforming objects to `Storable` interface and extending `StorageManager` to include helper functions for CRUD operations is all you need to do to use.
+
+### Replicates
+
+Recreations of user interfaces in apps or mockups.
+
 ## Todo
 
 features
