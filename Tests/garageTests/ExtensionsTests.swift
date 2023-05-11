@@ -54,11 +54,7 @@ extension ExtensionsTests {
         let darkSut: [Color] = [.brown, .black, .appPurple]
         XCTAssertEqual(
             brightSut.map { color in
-                print(color)
-
-                let isBright = color.isBright
-                print(isBright)
-                return isBright
+                color.isBright
             }.allSatisfy { isBright in
                     isBright
                 },
