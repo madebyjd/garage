@@ -12,12 +12,15 @@ final class StorageManagerTests: XCTestCase {
 
     let sut = StorageManager()
 
-    func testSaveLoad() async throws {
+    func testSaveLoadDelete() async throws {
         let day = Day.today.adding(months: -1)
         XCTAssertNotNil(day)
-        try await sut.p_save(storable: day!)
-        let response: Day = try await sut.p_fetch(id: day!.id)
+        try await sut.save(day: day!)
+        let response: Day = try await sut.fetch(day: day!)
         XCTAssertEqual(response, day)
+        try await sut.delete(day: day!)
+        let deletedResponse = try? await sut.fetch(day: day!)
+        XCTAssertNil(deletedResponse)
     }
 
     func testHighVolume() async throws {

@@ -20,10 +20,7 @@ public class DictionaryAPI: API {
     }
 
     public func fetchEntry(for word: String) -> AnyPublisher<DictionaryEntry?, Error> {
-        let url = baseUrl.appending(path: "entries/en").appending(path: word)
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-
+        let request = self.request(method: .get, url: baseUrl, path: "entries/en/\(word)")
         return self.urlSesssion.dataTaskPublisher(for: request)
             .map(\.data)
             .decode(type: [DictionaryEntry].self, decoder: JSONDecoder())
