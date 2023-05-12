@@ -44,6 +44,10 @@ extension Color {
     static var appPurple: Color {
         Color(hex: "#6A00FF")
     }
+
+    static var appLightGray: Color {
+        Color(hex: "#d3d3d3")
+    }
 }
 
 extension Color {

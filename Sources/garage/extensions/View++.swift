@@ -39,6 +39,22 @@ extension View {
         }
     }
 
+    public func centerHAlign() -> some View {
+        return HStack {
+            Spacer()
+            self
+            Spacer()
+        }
+    }
+
+    public func centerVAlign() -> some View {
+        return VStack {
+            Spacer()
+            self
+            Spacer()
+        }
+    }
+
     public func topAlign() -> some View {
         return VStack {
             self
