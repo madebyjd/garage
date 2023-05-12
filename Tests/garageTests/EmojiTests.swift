@@ -10,6 +10,13 @@ import XCTest
 
 final class EmojiTests: XCTestCase {
 
+
+    override class func setUp() {
+        super.setUp()
+
+        AppLog.setup()
+    }
+
     func testEmojiList() {
 
         let emojis = Emoji.list()

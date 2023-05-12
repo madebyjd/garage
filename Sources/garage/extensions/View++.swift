@@ -8,6 +8,14 @@
 import SwiftUI
 
 extension View {
+
+    public func hide(_ hidden: Bool) -> some View {
+        if hidden {
+            return EmptyView().anyView()
+        } else {
+            return self.anyView()
+        }
+    }
     public func fillingSuperview() -> some View {
         return self.frame(
             minWidth: 0,
@@ -79,5 +87,31 @@ extension View {
         } else {
             return self.anyView()
         }
+    }
+
+    public func stroke(enabled: Bool, color: Color, lineWidth: CGFloat) -> some View {
+        if enabled, let shape = self as? (any Shape) {
+            return shape
+                .stroke(color, lineWidth: lineWidth)
+                .anyView()
+        } else {
+            return self
+                .anyView()
+        }
+    }
+
+    public func fadeOutTop(fadeLength: CGFloat = 50) -> some View {
+        return mask(
+            VStack(spacing: 0) {
+
+                // Left gradient
+                LinearGradient(gradient: Gradient(
+                    colors: [Color.black.opacity(25), Color.black]),
+                               startPoint: .top, endPoint: .center)
+                .frame(height: fadeLength)
+
+                Rectangle().fill(Color.black)
+            }
+        )
     }
 }

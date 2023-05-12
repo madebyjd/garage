@@ -9,11 +9,13 @@ import Foundation
 
 public class Emoji {
 
+    static var listCache: [Emoji] = []
+
     var value: String
     var name: String
 
     public init(value: String, name: String) {
-        self.value = value
+        self.value = value.trimmingCharacters(in: .whitespacesAndNewlines)
         self.name = name
     }
 }
@@ -45,21 +47,39 @@ extension Emoji {
     }
 
     public static func list() -> [Emoji] {
-      let ranges = [
-        0x1F601...0x1F64F,
-        0x2600...0x27B0,
-        0x23F0...0x23FA,
-        0x1F680...0x1F6C0,
-        0x1F170...0x1F251
-      ]
+        guard listCache.count == 0 else {
+            return listCache
+        }
 
-      var all = ranges.joined().map {
-        return String(Character(UnicodeScalar($0)!))
-      }
+        let ranges = [
+            0x1F600...0x1F64F, // Emoticons
+            0x1F300...0x1F5FF, // Misc Symbols and Pictographs
+            0x1F680...0x1F6FF, // Transport and Map
+            0x2600...0x26FF,   // Misc symbols
+            0x2700...0x27BF,   // Dingbats
+            0xFE00...0xFE0F,   // Variation Selectors
+            0x1F900...0x1F9FF // Supplemental Symbols and Pictographs
+        ]
 
-      let solos = [0x231A, 0x231B, 0x2328, 0x2B50]
-      all.append(contentsOf: solos.map({ String(Character(UnicodeScalar($0)!))}))
+        let all = ranges.joined().map { codePoint -> String? in
+            guard let scalarValue = Unicode.Scalar(codePoint) else {
+                return nil
+            }
+            if scalarValue.properties.isEmoji {
+                return String(Character(UnicodeScalar(codePoint)!))
+            } else {
+                return nil
+            }
+        }
 
-        return all.map({ Emoji(value: $0, name: name(emoji: $0) ) })
+
+        let allEmojis = all
+            .compactMap { $0 }
+            .map({ Emoji(value: $0, name: name(emoji: $0) ) })
+            .filter { !$0.value.isEmpty }
+
+        self.listCache = allEmojis
+
+        return allEmojis
     }
 }

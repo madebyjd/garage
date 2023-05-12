@@ -6,6 +6,51 @@
 //
 
 import SwiftUI
+import Combine
+
+#if os(iOS)
+struct BlurEffectView: UIViewRepresentable {
+    var style: UIBlurEffect.Style = .systemMaterial
+
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        return UIVisualEffectView(effect: UIBlurEffect(style: style))
+    }
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+        uiView.effect = UIBlurEffect(style: style)
+    }
+}
+
+#else
+
+struct BlurEffectView: NSViewRepresentable
+{
+    public init(material: NSVisualEffectView.Material = .headerView, blendingMode: NSVisualEffectView.BlendingMode = .withinWindow) {
+        self.material = material
+        self.blendingMode = blendingMode
+    }
+
+    let material: NSVisualEffectView.Material
+    let blendingMode: NSVisualEffectView.BlendingMode
+
+    func makeNSView(context: Context) -> NSVisualEffectView
+    {
+        let visualEffectView = NSVisualEffectView()
+        visualEffectView.material = .windowBackground
+        visualEffectView.blendingMode = blendingMode
+        visualEffectView.isEmphasized = true
+        visualEffectView.state = NSVisualEffectView.State.active
+        return visualEffectView
+    }
+
+    func updateNSView(_ visualEffectView: NSVisualEffectView, context: Context)
+    {
+        visualEffectView.material = material
+        visualEffectView.blendingMode = blendingMode
+    }
+}
+
+#endif
+
 
 public struct EmojiPicker: View {
 
@@ -17,19 +62,32 @@ public struct EmojiPicker: View {
     ]
 
     var emojis: [Emoji] {
+        let search = search.trimmingCharacters(in: .whitespacesAndNewlines)
         if search.isEmpty {
             return Emoji.list()
+                .filter { emoji in
+                    let properties = emoji.value.unicodeScalars.map(\.properties)
+                    
+                    guard properties.first(where: \.isEmojiModifier) != nil || properties.first(where: \.isGraphemeBase) != nil  else { return false }
+
+                    return properties.first(where: \.isEmoji) != nil
+                }
+
         } else {
             return Emoji.list()
-                .filter { $0.name.lowercased().contains(search.lowercased()) }
+                .filter { $0.name.lowercased().contains(search.lowercased())
+                }
         }
     }
 
     @Environment(\.dismiss)
     var dismiss
 
-    @Binding
+    @State
     public var selectedEmoji: Emoji?
+
+    @State
+    public var longSelectedEmoji: Emoji?
 
     @State
     private var search: String = ""
@@ -40,70 +98,129 @@ public struct EmojiPicker: View {
     @State
     private var searchHasFocus = false
 
-    private var selectedColor: Color
+    @State
+    private var emojiOverlayTimer: AnyCancellable?
 
-    public init(selectedEmoji: Binding<Emoji?>, selectedColor: Color) {
-        self._selectedEmoji = selectedEmoji
-        self.selectedColor = selectedColor
+    @State
+    private var offset: CGPoint = .init(x: 0.0, y: 60.0)
+
+    @Environment(\.colorScheme) var colorScheme
+
+    private let topInset: CGFloat = 60.0
+
+    public init() {
+        self._selectedEmoji = .init(initialValue: Emoji.list().randomElement())
     }
 
     public var body: some View {
-        ScrollView {
+        ZStack(alignment: .top) {
 
-            VStack {
-                HStack(alignment: .center, spacing: Constants.UI.medPadding) {
+            ScrollView(.vertical){
+                Spacer(minLength: topInset)
+                    .frame(width: .infinity)
 
-                    TextField("Search", text: $search)
-                        .textFieldStyle(RoundedTextFieldStyle(active: search.count > 0))
-                        .font(.title3)
-                        .focused($searchFocus)
+                emojisGrid
+                    .padding( Constants.UI.medPadding)
+            }
 
+            header
+                .background(Color.appDarkGray.opacity(0.95))
+                .frame(height: 60.0)
+                .topAlign()
 
-                    Button {
-                        dismiss()
-                        self.selectedEmoji = Emoji.list()[Int.random(in: 0..<600)]
-                    } label: {
-                        Text("Close")
-                            .font(.title3)
-                    }
-                    .controlSize(ControlSize.regular)
+        }
+
+        .overlay {
+            emojiNameAlert
+                .hide(longSelectedEmoji == nil)
+
+        }
+    }
+
+    var emojisGrid: some View {
+        LazyVGrid(columns: columns) {
+
+            ForEach(emojis, id: \.name) { emoji in
+                ZStack {
+
+                    RoundedRectangle(cornerRadius: Constants.UI.cornerRadius)
+                        .foregroundColor(.appLightGray)
+
+                    RoundedRectangle(cornerRadius: Constants.UI.cornerRadius)
+                        .stroke(self.selectedEmoji?.value == emoji.value ? Color.accentColor : Color.clear, lineWidth: 4)
+                        .foregroundColor(selectedEmoji?.value == emoji.value ? Color.clear : Color.appLightGray)
+
+                    Text(String(Character(emoji.value)))
+                        .font(.largeTitle)
                 }
-                .padding([.horizontal, .top], Constants.UI.largePadding)
-
-                LazyVGrid(columns: columns) {
-                    ForEach(emojis, id: \.name) { emoji in
-                        ZStack {
-                            RoundedRectangle(cornerRadius: Constants.UI.cornerRadius)
-                                .onTapGesture {
-                                    selectedEmoji = emoji
-                                    dismiss()
-                                }
-                            Text(emoji.value)
-                            }
-                            .font(.largeTitle)
-                            .foregroundColor(
-                                selectedEmoji?.value == emoji.value ?
-                                selectedColor : Color.appLightGray.opacity(0.25)
-                            )
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .help(emoji.name.capitalized)
-                    }
+                .onTapGesture {
+                    self.selectedEmoji = emoji
+                    dismiss()
                 }
-                .padding( Constants.UI.smallPadding)
+                .onLongPressGesture(perform: {
+                    self.longSelectedEmoji = emoji
+                    emojiOverlayTimer = Timer.TimerPublisher.init(interval: 3.0, runLoop: RunLoop.main, mode: .common)
+                        .autoconnect()
+                        .sink() { _ in
+                            emojiOverlayTimer?.cancel()
+                            self.longSelectedEmoji = nil
+                        }
+                }, onPressingChanged: { _ in
+                    emojiOverlayTimer?.cancel()
+                    self.longSelectedEmoji = nil
+                })
+                .aspectRatio(1.0, contentMode: .fit)
+                .help(emoji.name.capitalized)
             }
         }
+    }
+
+    var emojiNameAlert: some View {
+        RoundedRectangle(cornerRadius: Constants.UI.cornerRadius)
+            .foregroundColor(.appLightGray.opacity(0.85))
+            .overlay {
+                Text(longSelectedEmoji?.name.capitalized ?? "")
+                    .lineLimit(3)
+                    .multilineTextAlignment(.center)
+                    .padding(10.0)
+            }
+            .padding(100.0)
+            .aspectRatio(1.25, contentMode: .fit)
+    }
+
+    var header: some View {
+        HStack(alignment: .center, spacing: Constants.UI.medPadding) {
+
+            TextField("Search", text: $search)
+                .textFieldStyle(RoundedTextFieldStyle(active: search.count > 0, color: Color.accentColor))
+                .font(.title3)
+                .focused($searchFocus)
+
+
+            Button {
+                dismiss()
+            } label: {
+                Text("Close")
+                    .font(.title3)
+            }
+            .bold()
+            .controlSize(ControlSize.regular)
+        }
+        .padding([.horizontal, .top], Constants.UI.largePadding)
+        .topAlign()
     }
 }
 
 struct EmojiPicker_Previews: PreviewProvider {
 
     @State
-    static var selectedEmoji: Emoji?
+    static var selectedEmoji: Emoji? = Emoji(value: "😃", name: "SMILING FACE WITH OPEN MOUTH")
 
     static var previews: some View {
-        EmojiPicker(selectedEmoji: $selectedEmoji, selectedColor: .orange)
-            .onAppear {
-                self.selectedEmoji = Emoji.list().first!
+        EmojiPicker()
+            .accentColor(.orange)
+            .refreshable {
+                self._selectedEmoji = .init(wrappedValue: Emoji.list().randomElement()!)
             }
     }
 }
