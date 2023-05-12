@@ -19,8 +19,25 @@ final class APITests: XCTestCase {
         AppLog.setup()
     }
 
+}
+
+extension APITests {
+
+    // MARK: - DictionaryAPI Tests
+
     func testDictionaryAPI() {
-        let word = "test"
+        let words = [
+            "test",
+            "notepad",
+            "computer",
+            "apartment"
+        ]
+        for word in words {
+            self.fetchDictionaryEntry(word: word)
+        }
+    }
+
+    func fetchDictionaryEntry(word: String) {
         let dictionaryApi = DictionaryAPI()
 
         let expectation = expectation(description: "Fetch dictionary entry")
@@ -28,7 +45,6 @@ final class APITests: XCTestCase {
 
         dictionaryApi.fetchEntry(for: word)
             .sink { result in
-                print(result)
                 switch result {
                 case .finished:
                     return
@@ -47,5 +63,6 @@ final class APITests: XCTestCase {
         XCTAssertNotNil(response)
         XCTAssert(response!.word == word)
         XCTAssertTrue(response!.meanings.count > 0)
+
     }
 }
