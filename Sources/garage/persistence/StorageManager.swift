@@ -53,6 +53,7 @@ extension StorageManager {
         defer { semaphore.signal() }
         let data = try JSONEncoder().encode(storable)
         let url = p_url(with: storable.id, for: directory(for: Item.self))
+        AppLog.d(url.absoluteString)
         try data.write(to: url)
     }
 

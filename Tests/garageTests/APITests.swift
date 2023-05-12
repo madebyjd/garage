@@ -52,7 +52,6 @@ extension APITests {
                     AppLog.e(error.localizedDescription)
                 }
             } receiveValue: { dictionaryEntry in
-                guard let dictionaryEntry = dictionaryEntry else { return }
                 response = dictionaryEntry
                 expectation.fulfill()
             }

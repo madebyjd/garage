@@ -19,12 +19,13 @@ public class DictionaryAPI: API {
         self.baseUrl = URL(string: "https://api.dictionaryapi.dev/api/v2")!
     }
 
-    public func fetchEntry(for word: String) -> AnyPublisher<DictionaryEntry?, Error> {
+    public func fetchEntry(for word: String) -> AnyPublisher<DictionaryEntry, Error> {
         let request = self.request(method: .get, url: baseUrl, path: "entries/en/\(word)")
         return self.urlSesssion.dataTaskPublisher(for: request)
             .map(\.data)
             .decode(type: [DictionaryEntry].self, decoder: JSONDecoder())
             .map(\.first)
+            .throwErrorForNil(APIError.badResponse)
             .eraseToAnyPublisher()
     }
 }

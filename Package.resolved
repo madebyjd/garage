@@ -17,6 +17,15 @@
         "branch" : "main",
         "revision" : "b92ec84502425e11a72a93852fe9427f78dce81a"
       }
+    },
+    {
+      "identity" : "swiftui-markdown",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jaywcjlove/swiftui-markdown.git",
+      "state" : {
+        "revision" : "34aa6ee754219377309acdfc9118d0d020b1932f",
+        "version" : "1.0.9"
+      }
     }
   ],
   "version" : 2

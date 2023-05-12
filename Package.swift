@@ -12,10 +12,12 @@ let package = Package(
     products: [
         .library(
             name: "garage",
-            targets: ["garage"])
+            targets: ["garage"]
+        )
     ],
     dependencies: [
         .package(name: "SLLog", url: "https://github.com/shial4/LogSwift.git", branch: "master"),
+        .package(name: "Markdown", url: "https://github.com/jaywcjlove/swiftui-markdown.git", from: "1.0.0"),
         .package(url: "https://github.com/groue/Semaphore.git", branch: "main"),
     ],
     targets: [
@@ -24,6 +26,7 @@ let package = Package(
             dependencies: [
                 "SLLog",
                 "Semaphore",
+                "Markdown",
             ],
             resources: [
                 .process("first-names.txt"),
@@ -34,6 +37,10 @@ let package = Package(
             ]),
         .testTarget(
             name: "garageTests",
-            dependencies: ["garage"]),
+            dependencies: ["garage"],
+            resources: [
+                .copy("test.png"),
+            ]
+        )
     ]
 )

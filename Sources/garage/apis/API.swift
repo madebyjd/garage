@@ -7,6 +7,10 @@
 
 import Foundation
 
+public enum APIError: Error {
+    case badResponse
+}
+
 public enum APIMethod: String {
     case get = "GET"
 }

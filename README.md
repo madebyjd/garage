@@ -80,6 +80,7 @@ interface
 - above keyboard bar view
 - json form
 - markdown view
+- book view (ebook/epub)
 
 extensions
 - swiftui.view
