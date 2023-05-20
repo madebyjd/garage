@@ -54,10 +54,28 @@ final class VersionTests: XCTestCase {
         XCTAssert(versionA == versionA)
     }
 
+    func testPrereleaseComparables() {
+        let zero = Version(0, 0, 0, pre: ["beta"])
+        let sut = Version(0, 0, 0, pre: ["beta.2"])
+        XCTAssert(zero < sut)
+    }
+
     func testBundleVersion() {
         let zero = Version(0, 0, 0)
         let sut = Bundle.main.version
         XCTAssert(zero < sut)
+    }
+
+    func testOSVersion() {
+        let zero = Version(0, 0, 0)
+        let sut = ProcessInfo.processInfo.osVersion
+        XCTAssert(zero < sut)
+    }
+
+    func testVersionHash() {
+        let zero = Version(0, 0, 0)
+        let minor = Version(0, 0, 1)
+        XCTAssertNotEqual(zero.hashValue, minor.hashValue)
     }
 
     func testUncheckedRangeContains() {
@@ -66,8 +84,11 @@ final class VersionTests: XCTestCase {
         let versionC = Version(1, 5, 0)
         let versionD = Version(2, 5, 0)
         let sut = Range(uncheckedBounds: (versionA, versionB))
+        let sut2 = ClosedRange(uncheckedBounds: (versionA, versionB))
         XCTAssert(sut.contains(versionC))
         XCTAssertFalse(sut.contains(versionD))
+        XCTAssert(sut2.contains(versionC))
+        XCTAssertFalse(sut2.contains(versionD))
     }
 
     func testRangeContains() {
