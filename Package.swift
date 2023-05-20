@@ -17,8 +17,8 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "SLLog", url: "https://github.com/shial4/LogSwift.git", branch: "master"),
-        .package(name: "Markdown", url: "https://github.com/jaywcjlove/swiftui-markdown.git", from: "1.0.0"),
         .package(url: "https://github.com/groue/Semaphore.git", branch: "main"),
+        .package(name: "ViewInspector", url: "https://github.com/nalexn/ViewInspector.git", branch: "0.9.7"),
     ],
     targets: [
         .target(
@@ -26,7 +26,6 @@ let package = Package(
             dependencies: [
                 "SLLog",
                 "Semaphore",
-                "Markdown",
             ],
             resources: [
                 .process("first-names.txt"),
@@ -37,7 +36,10 @@ let package = Package(
             ]),
         .testTarget(
             name: "garageTests",
-            dependencies: ["garage"],
+            dependencies: [
+                "garage",
+                "ViewInspector"
+            ],
             resources: [
                 .copy("test.png"),
             ]

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Markdown
 
 struct TextInput: View {
 
@@ -34,8 +33,7 @@ struct TextInput: View {
                 .font(.system(.title2, design: .rounded, weight: .regular))
 
             toolbar
-                .ignoresSafeArea(.all
-                )
+                .ignoresSafeArea(.all)
         }
     }
 

@@ -13,6 +13,35 @@ final class ExtensionsTests: XCTestCase {
 
 }
 
+// MARK: - NSimage
+
+#if os(macOS)
+extension ExtensionsTests {
+
+    func testPngData() throws {
+        let url = Bundle.module.url(forResource: "test", withExtension: "png")!
+        let data = try! Data(contentsOf: url)
+        let sut = NSImage(data: data)
+        let pngData = sut?.pngData()
+        XCTAssertNotNil(pngData)
+    }
+}
+#endif
+
+// MARK: - String
+
+extension ExtensionsTests {
+
+    func testRegexMatches() {
+        let sut = "123test456"
+        let regex = "[0-9]+[a-zA-Z]+[0-9]+"
+        let didMatch = sut.matches(regex)
+        let firstMatch = sut.firstMatch(regex)
+        XCTAssertTrue(didMatch)
+        XCTAssertEqual(sut, firstMatch)
+    }
+}
+
 // MARK: - Array
 
 extension ExtensionsTests {
@@ -28,6 +57,20 @@ extension ExtensionsTests {
         let initialCount = sut.count
         sut.removeDuplicates()
         XCTAssertNotEqual(sut.count, initialCount)
+    }
+
+    func testChunked() {
+        let sut = [
+            "1",
+            "2",
+            "3",
+            "4",
+            "1"
+        ]
+        let initialCount = sut.chunked(into: 2)
+        XCTAssertEqual(initialCount[0].count, 2)
+        XCTAssertEqual(initialCount[1].count, 2)
+        XCTAssertEqual(initialCount[2].count, 1)
     }
 }
 
