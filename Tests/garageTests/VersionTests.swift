@@ -60,12 +60,22 @@ final class VersionTests: XCTestCase {
         XCTAssert(zero < sut)
     }
 
-    func testRangeContains() {
+    func testUncheckedRangeContains() {
         let versionA = Version(1, 2, 3)
         let versionB = Version(2, 3, 4)
         let versionC = Version(1, 5, 0)
         let versionD = Version(2, 5, 0)
         let sut = Range(uncheckedBounds: (versionA, versionB))
+        XCTAssert(sut.contains(versionC))
+        XCTAssertFalse(sut.contains(versionD))
+    }
+
+    func testRangeContains() {
+        let versionA = Version(1, 2, 3, pre: ["1"])
+        let versionB = Version(2, 3, 4, pre: ["1"])
+        let versionC = Version(1, 5, 0, pre: ["1"])
+        let versionD = Version(2, 5, 0)
+        let sut = versionA..<versionB
         XCTAssert(sut.contains(versionC))
         XCTAssertFalse(sut.contains(versionD))
     }
