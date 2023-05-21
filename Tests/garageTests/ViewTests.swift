@@ -1,8 +1,5 @@
 //
 //  ViewTests.swift
-//  
-//
-//  Created by Jonathan Danek on 5/19/23.
 //
 
 import XCTest

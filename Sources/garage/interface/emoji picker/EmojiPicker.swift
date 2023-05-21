@@ -1,8 +1,5 @@
 //
 //  EmojiPicker.swift
-//  
-//
-//  Created by Jonathan Danek on 5/11/23.
 //
 
 import SwiftUI

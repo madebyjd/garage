@@ -11,6 +11,11 @@ import XCTest
 
 final class DateTests: XCTestCase {
 
+    func testDaySinceBreakup() {
+        let sut = Day(month: 9, day: 02, year: 2021)
+        print(sut.difference(to: Day.today))
+    }
+
     func testDayComponents() {
         let sut = Day(date: Date(timeIntervalSinceReferenceDate: TimeInterval(699921248.705154)))
         XCTAssertEqual(sut.day, 7)

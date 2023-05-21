@@ -1,8 +1,5 @@
 //
 //  DayView.swift
-//  
-//
-//  Created by Jonathan Danek on 5/6/23.
 //
 // Made from ideas/inspiration from `replicate - 7.png`
 

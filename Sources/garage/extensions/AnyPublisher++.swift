@@ -1,8 +1,5 @@
 //
 //  File.swift
-//  
-//
-//  Created by Jonathan Danek on 5/12/23.
 //
 
 import Combine
