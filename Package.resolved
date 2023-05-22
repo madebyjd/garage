@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "swiftuicam",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vGebs/SwiftUICam.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "f06d9d62a883e88d0b808df45d10d596a5f005cc"
+      }
+    },
+    {
       "identity" : "viewinspector",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/nalexn/ViewInspector.git",

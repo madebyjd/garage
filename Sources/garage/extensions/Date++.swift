@@ -21,6 +21,14 @@ extension Date {
         return Calendar.current.component(.year, from: self)
     }
 
+    public var hour: Int {
+        return Calendar.current.component(.hour, from: self)
+    }
+
+    public var minute: Int {
+        return Calendar.current.component(.minute, from: self)
+    }
+
     public var dayName: String {
         let dateFormatter = DateFormatter()
         let format = "EEEE"

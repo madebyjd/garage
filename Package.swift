@@ -18,6 +18,7 @@ let package = Package(
     dependencies: [
         .package(name: "SLLog", url: "https://github.com/shial4/LogSwift.git", branch: "master"),
         .package(url: "https://github.com/groue/Semaphore.git", branch: "main"),
+        .package(url: "https://github.com/vGebs/SwiftUICam.git", branch: "main"),
         .package(name: "ViewInspector", url: "https://github.com/nalexn/ViewInspector.git", branch: "0.9.7"),
     ],
     targets: [
@@ -26,6 +27,7 @@ let package = Package(
             dependencies: [
                 "SLLog",
                 "Semaphore",
+                "SwiftUICam"
             ],
             resources: [
                 .process("first-names.txt"),

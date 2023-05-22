@@ -71,14 +71,14 @@ extension Day: Identifiable, Sendable, Hashable, Codable {
         String(format: "%02d-%02d-%02d", year, month, day)
     }
 
-    public func formatted(style: Style) -> String {
+    public func formatted(style: Style, includeToday: Bool = true) -> String {
         switch style {
         case .short:
             return String(format: "%02d-%02d-%02d", year, month, day)
         case .medium:
             guard let date = self.makeDate() else { return "" }
             var string = date.formatted(date: .abbreviated, time: .omitted)
-            if self == Day.today {
+            if self == Day.today, includeToday {
                 string = "Today, " + string
             }
             return string

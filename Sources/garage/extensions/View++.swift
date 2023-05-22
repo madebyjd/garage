@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 extension View {
 
@@ -113,5 +114,13 @@ extension View {
                 Rectangle().fill(Color.black)
             }
         )
+    }
+
+    func photosPicker(
+        isPresented: Binding<Bool>,
+        configuration: PHPickerConfiguration = .init(),
+        onDismiss: (([PHPickerResult]) -> Void)? = nil
+    ) -> some View {
+        PhotosPickerSheet(isPresented: isPresented, configuration: configuration, onDismiss: onDismiss, content: self)
     }
 }
