@@ -4,9 +4,9 @@
 //
 //  Created by Jonathan Danek on 5/21/23.
 //
-
+#if os(iOS)
+import UIKit
 import SwiftUI
-import SwiftUICam
 import PhotosUI
 
 public protocol PostEditorDelegate {
@@ -275,3 +275,5 @@ extension PostEditor {
         ]
     }
 }
+
+#endif

@@ -5,6 +5,7 @@
 //  Created by Jonathan Danek on 5/21/23.
 //
 
+#if os(iOS)
 import Foundation
 import Combine
 import UIKit
@@ -45,3 +46,5 @@ class CameraViewModel: ObservableObject {
         self.images.append(image)
     }
 }
+
+#endif

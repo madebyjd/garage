@@ -5,8 +5,8 @@
 //  Created by Jonathan Danek on 5/21/23.
 //
 
+#if os(iOS)
 import Foundation
-import SwiftUICam
 import UIKit
 import SwiftUI
 
@@ -22,3 +22,5 @@ struct CameraPreview: UIViewRepresentable {
     func updateUIView(_ uiView: UIView, context: Context) { }
 
 }
+
+#endif

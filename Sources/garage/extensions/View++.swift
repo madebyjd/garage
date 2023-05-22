@@ -121,6 +121,10 @@ extension View {
         configuration: PHPickerConfiguration = .init(),
         onDismiss: (([PHPickerResult]) -> Void)? = nil
     ) -> some View {
+#if os(iOS)
         PhotosPickerSheet(isPresented: isPresented, configuration: configuration, onDismiss: onDismiss, content: self)
+        #else
+        self
+        #endif
     }
 }

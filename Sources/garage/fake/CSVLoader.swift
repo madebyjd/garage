@@ -45,7 +45,7 @@ public class CSVLoader {
                 line.components(separatedBy: delimiter)
                     .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             }
-            .map { row in
+            .forEach { row in
                 guard row.count == 2 else { return }
                 self.list[row[0]] = row
             }
