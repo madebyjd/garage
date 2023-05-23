@@ -5,11 +5,11 @@
 //  Created by Jonathan Danek on 5/21/23.
 //
 
-#if os(iOS)
 import Foundation
 import Combine
+
+#if os(iOS)
 import UIKit
-import SwiftUICam
 
 var screenHeight = UIScreen.main.bounds.height
 var screenWidth = UIScreen.main.bounds.width
@@ -45,6 +45,30 @@ class CameraViewModel: ObservableObject {
     func add(image: UIImage) {
         self.images.append(image)
     }
+
+    func toggleCamera() {
+        wrapper?.toggleCamera()
+    }
+    func capturePhoto() {
+        wrapper?.capturePhoto()
+    }
 }
 
+#else
+import AppKit
+class CameraViewModel: ObservableObject {
+
+    init() {
+        
+    }
+
+    var images: [NSImage] = []
+
+    func toggleCamera() {
+
+    }
+    func capturePhoto() {
+
+    }
+}
 #endif

@@ -6,6 +6,7 @@
 //
 #if os(iOS)
 import UIKit
+#endif
 import SwiftUI
 import PhotosUI
 
@@ -22,7 +23,9 @@ public struct PostEditor: View {
 
     @ObservedObject var model = PostEditorViewModel()
 
+    #if os(iOS)
     let view = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth - 30.0, height: screenHeight * 0.6))
+    #endif
 
     public init(delegate: PostEditorDelegate? = nil) {
         self.model.delegate = delegate
@@ -86,6 +89,7 @@ public struct PostEditor: View {
                 #else
 
                 ZStack {
+                    #if os(iOS)
                     CameraPreview(camera: self.model.camera.wrapper!, view: view)
 
                     if self.model.selectedPhotoIndex >= 0, self.model.camera.images.count > self.model.selectedPhotoIndex {
@@ -94,14 +98,15 @@ public struct PostEditor: View {
                             .frame(width: view.frame.width, height: view.frame.height)
                             .cornerRadius(10.0)
                     }
+                    #endif
                 }
                 HStack {
                     SymbolButton(systemName: "arrow.triangle.2.circlepath") {
-                        self.model.camera.wrapper!.toggleCamera()
+                        self.model.camera.toggleCamera()
                     }
                     Spacer()
                     SymbolButton(systemName: "camera.circle.fill") {
-                        self.model.camera.wrapper!.capturePhoto()
+                        self.model.camera.capturePhoto()
                     }
                     Spacer()
                     SymbolButton(systemName: "checkmark.circle.fill") {
@@ -111,7 +116,7 @@ public struct PostEditor: View {
                 }
                 .font(.largeTitle)
                 #endif
-
+                #if os(iOS)
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(Array(self.model.camera.images.enumerated()), id: \.0.self) { (idx, image) in
@@ -122,13 +127,17 @@ public struct PostEditor: View {
                     }
                 }
                 .padding(10.0)
+                #endif
             } else if self.model.isShowingMedia {
+                #if os(iOS)
                 if let uiImage = self.model.camera.images[safe: self.model.selectedPhotoIndex] {
                     Image(uiImage: uiImage)
                         .resizable()
                         .frame(width: view.frame.width, height: view.frame.height)
                         .cornerRadius(10.0)
                 }
+                #endif
+
 
                 HStack {
                     SymbolButton(systemName: "trash.circle.fill") {
@@ -146,6 +155,7 @@ public struct PostEditor: View {
                 }
                 .font(.largeTitle)
 
+#if os(iOS)
                 ScrollView(.horizontal) {
                     HStack(spacing: 10.0) {
                         ForEach(Array(self.model.camera.images.enumerated()), id: \.0.self) { (idx, image) in
@@ -159,7 +169,9 @@ public struct PostEditor: View {
                         }
                     }
                 }
+
                 .padding(10.0)
+    #endif
             } else if self.model.title != nil {
                 textEntry
             } else {
@@ -172,11 +184,13 @@ public struct PostEditor: View {
             for item in photos.map(\.itemProvider) {
                 dispatchGroup.enter()
                 let loader = item.loadDataRepresentation(for: .image) { (data, _) in
+                    #if os(iOS)
                     if let data = data, let image = UIImage(data: data) {
                         Task { @MainActor in
                             self.model.camera.add(image: image)
                         }
                     }
+                    #endif
                     dispatchGroup.leave() // signal OUT
                 }
                 loader.resume()
@@ -275,5 +289,3 @@ extension PostEditor {
         ]
     }
 }
-
-#endif

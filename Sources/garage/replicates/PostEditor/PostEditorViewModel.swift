@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 import Combine
-#if os(iOS)
+
 public class PostEditorViewModel: ObservableObject {
     @Published var day = Day.today
     @Published var time = Time.now
@@ -26,4 +26,3 @@ public class PostEditorViewModel: ObservableObject {
 
     }
 }
-#endif

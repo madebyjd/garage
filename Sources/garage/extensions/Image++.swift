@@ -3,9 +3,26 @@
 //
 
 import Foundation
+import SwiftUI
 
+extension CPImage {
+
+    static func load(data: Data) -> CPImage? {
+        CPImage(data: data)
+    }
+}
+
+extension Image {
+
+    init(cpImage: CPImage) {
+        #if os(iOS)
+        self.init(uiImage: cpImage)
+        #else
+        self.init(nsImage: cpImage)
+        #endif
+    }
+}
 #if os(iOS)
-
 
 #else
 import AppKit
@@ -45,5 +62,7 @@ extension NSImage {
 
         return bitmap.representation(using: .png, properties: [:])
     }
+
+
 }
 #endif

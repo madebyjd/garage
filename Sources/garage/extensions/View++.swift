@@ -127,4 +127,14 @@ extension View {
         self
         #endif
     }
+
+    func onSlightDelay(_ action: @escaping () -> Void) -> AnyView {
+        self
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                    action()
+                }
+            }
+            .anyView()
+    }
 }

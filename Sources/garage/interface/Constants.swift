@@ -14,3 +14,13 @@ public class Constants {
         static var cornerRadius: CGFloat = 10.0
     }
 }
+
+import SwiftUI
+
+#if os(iOS)
+    import UIKit
+    public typealias CPImage = UIImage
+#elseif os(OSX)
+    import AppKit
+    public typealias CPImage = NSImage
+#endif
