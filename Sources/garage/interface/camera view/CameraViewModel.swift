@@ -15,23 +15,22 @@ var screenHeight = UIScreen.main.bounds.height
 var screenWidth = UIScreen.main.bounds.width
 
 class CameraViewModel: ObservableObject {
-    
-    
+
     var wrapper: CameraWrapper?
-    
+
     @Published private(set) var image: UIImage?
     @Published private(set) var vidURL: String?
-    
+
     @Published var images: [UIImage] = []
-    
+
     private var cancellables: [AnyCancellable] = []
-    
+
     init() {
 #if TARGET_IPHONE_SIMULATOR
 #else
         let wrapper = CameraWrapper()
         wrapper.buildCamera()
-        
+
         wrapper.$image
             .sink { image in
                 guard let image = image else { return }
@@ -41,7 +40,7 @@ class CameraViewModel: ObservableObject {
         self.wrapper = wrapper
 #endif
     }
-    
+
     func add(image: UIImage) {
         self.images.append(image)
     }
@@ -59,7 +58,7 @@ import AppKit
 class CameraViewModel: ObservableObject {
 
     init() {
-        
+
     }
 
     var images: [NSImage] = []

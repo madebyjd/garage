@@ -7,7 +7,7 @@ let package = Package(
     name: "garage",
     platforms: [
         .iOS(.v16),
-        .macOS(.v13),
+        .macOS(.v13)
     ],
     products: [
         .library(
@@ -18,7 +18,7 @@ let package = Package(
     dependencies: [
         .package(name: "SLLog", url: "https://github.com/shial4/LogSwift.git", branch: "master"),
         .package(url: "https://github.com/groue/Semaphore.git", branch: "main"),
-        .package(name: "ViewInspector", url: "https://github.com/nalexn/ViewInspector.git", branch: "0.9.7"),
+        .package(name: "ViewInspector", url: "https://github.com/nalexn/ViewInspector.git", branch: "0.9.7")
     ],
     targets: [
         .target(
@@ -32,7 +32,7 @@ let package = Package(
                 .process("last-names.txt"),
                 .process("streets.txt"),
                 .process("lorem.txt"),
-                .process("countries.csv"),
+                .process("countries.csv")
             ]),
         .testTarget(
             name: "garageTests",
@@ -41,7 +41,7 @@ let package = Package(
                 "ViewInspector"
             ],
             resources: [
-                .copy("test.png"),
+                .copy("test.png")
             ]
         )
     ]

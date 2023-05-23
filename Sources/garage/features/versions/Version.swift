@@ -18,8 +18,7 @@ public struct Version {
     public let buildMetadataIdentifiers: [String]
 
     @inlinable
-    public init(_ major: Int, _ minor: Int, _ patch: Int, pre: [String] = [], build: [String] = [])
-    {
+    public init(_ major: Int, _ minor: Int, _ patch: Int, pre: [String] = [], build: [String] = []) {
         self.major = abs(major)
         self.minor = abs(minor)
         self.patch = abs(patch)

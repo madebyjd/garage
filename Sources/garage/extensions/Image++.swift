@@ -63,6 +63,5 @@ extension NSImage {
         return bitmap.representation(using: .png, properties: [:])
     }
 
-
 }
 #endif

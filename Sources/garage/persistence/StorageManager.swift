@@ -5,18 +5,16 @@
 import Foundation
 import Semaphore
 
-
 enum StorageManagerError: Error {
     case badUrl
 }
-
 
 public class StorageManager {
 
     public init() {
 
     }
-    
+
     var semaphore = AsyncSemaphore(value: 1)
 
     var documentsDirectory: URL {
@@ -102,7 +100,6 @@ extension StorageManager {
 
 }
 
-
 extension StorageManager {
 
     func getFiles(in directory: URL) -> [String] {
@@ -112,4 +109,3 @@ extension StorageManager {
         }
     }
 }
-

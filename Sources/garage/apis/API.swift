@@ -14,7 +14,6 @@ public enum APIMethod: String {
 
 public protocol API {
 
-
     var urlSesssion: URLSession { get }
 
     var baseUrl: URL { get }

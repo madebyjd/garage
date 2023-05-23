@@ -9,22 +9,22 @@ import AVFoundation
 #if os(iOS)
 class PhotoCaptureProcessor: NSObject {
     private(set) var requestedPhotoSettings: AVCapturePhotoSettings
-    
+
     private let completionHandler: (PhotoCaptureProcessor) -> Void
-        
+
     var photoData: Data?
-    
+
     private var livePhotoCompanionMovieURL: URL?
-    
+
     private var semanticSegmentationMatteDataArray = [Data]()
     private var maxPhotoProcessingTime: CMTime?
 
     init(with requestedPhotoSettings: AVCapturePhotoSettings, completionHandler: @escaping (PhotoCaptureProcessor) -> Void) {
-        
+
         self.requestedPhotoSettings = requestedPhotoSettings
         self.completionHandler = completionHandler
     }
-    
+
     private func didFinish() {
         completionHandler(self)
     }
@@ -34,18 +34,18 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
     /*
      This extension adopts all of the AVCapturePhotoCaptureDelegate protocol methods.
      */
-    
+
     /// - Tag: WillBeginCapture
     func photoOutput(_ output: AVCapturePhotoOutput, willBeginCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
 
         maxPhotoProcessingTime = resolvedSettings.photoProcessingTimeRange.start + resolvedSettings.photoProcessingTimeRange.duration
     }
-    
+
     /// - Tag: WillCapturePhoto
     func photoOutput(_ output: AVCapturePhotoOutput, willCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
-        //willCapturePhotoAnimation()
+        // willCapturePhotoAnimation()
     }
-    
+
     /// - Tag: DidFinishProcessingPhoto
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
 
@@ -56,12 +56,12 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             photoData = photo.fileDataRepresentation()
         }
     }
-    
+
     /// - Tag: DidFinishRecordingLive
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishRecordingLivePhotoMovieForEventualFileAt outputFileURL: URL, resolvedSettings: AVCaptureResolvedPhotoSettings) {
-        //livePhotoCaptureHandler(false)
+        // livePhotoCaptureHandler(false)
     }
-    
+
     /// - Tag: DidFinishProcessingLive
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingLivePhotoToMovieFileAt outputFileURL: URL, duration: CMTime, photoDisplayTime: CMTime, resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
         if error != nil {
@@ -70,7 +70,7 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
         }
         livePhotoCompanionMovieURL = outputFileURL
     }
-    
+
     /// - Tag: DidFinishCapture
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
         if let error = error {

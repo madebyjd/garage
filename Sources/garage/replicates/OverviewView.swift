@@ -86,7 +86,7 @@ struct OverviewView_Previews: PreviewProvider {
                     "Total Calories": "224 Cal",
                     "Elevation Gain": "105 Ft",
                     "Avg. Pace": "23'10",
-                    "Avg. Heart Rate": "103 Bpm",
+                    "Avg. Heart Rate": "103 Bpm"
                 ]
             )
         )

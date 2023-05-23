@@ -33,7 +33,7 @@ public class ImporterViewModel: ObservableObject {
 
         setupPipelines()
     }
-    
+
     public enum Kind {
         case none
         case text
@@ -56,7 +56,6 @@ public class ImporterViewModel: ObservableObject {
     @Published public var selectedIndex: Int?
     @Published public var isShowingPhotoPicker = false
     @Published public var selectedItem: [PhotosPickerItem] = []
-
 
     // MARK: - Setup
 

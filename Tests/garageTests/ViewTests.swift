@@ -21,7 +21,7 @@ final class ViewTests: XCTestCase {
 
     func testOverviewView() throws {
 
-        let model = OverviewViewModel(symbol: "hare.fill", title: "title", subtitle: "subtitle", description: "just some description", details: ["key" : "value"])
+        let model = OverviewViewModel(symbol: "hare.fill", title: "title", subtitle: "subtitle", description: "just some description", details: ["key": "value"])
         let sut = OverviewView(model: model)
 
         let text = try sut.inspect().find(text: "title").string()

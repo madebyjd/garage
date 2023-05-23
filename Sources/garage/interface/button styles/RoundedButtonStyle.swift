@@ -25,7 +25,6 @@ public struct RoundedButtonStyle: ButtonStyle {
     }
 }
 
-
 struct RoundedButtonStyle_Previews: PreviewProvider {
     static var previews: some View {
         Group {

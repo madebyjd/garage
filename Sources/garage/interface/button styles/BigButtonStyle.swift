@@ -33,12 +33,11 @@ public struct BigButtonStyle: ButtonStyle {
   }
 }
 
-
 struct BigButtonStyle_Previews: PreviewProvider {
     static var previews: some View {
 
         Button("test button") {
-            
+
         }
         .buttonStyle(BigButtonStyle(color: .accentColor, isEnabled: true))
     }

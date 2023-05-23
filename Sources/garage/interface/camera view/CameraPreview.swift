@@ -15,7 +15,7 @@ struct CameraPreview: UIViewRepresentable {
     @ObservedObject var camera: CameraWrapper
     var view: UIView
 
-    func makeUIView(context: Context) ->  UIView {
+    func makeUIView(context: Context) -> UIView {
         return camera.makeUIView(view)
     }
 

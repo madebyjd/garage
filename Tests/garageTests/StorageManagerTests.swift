@@ -9,7 +9,6 @@ final class StorageManagerTests: XCTestCase {
 
     let sut = StorageManager()
 
-
     override class func setUp() {
         super.setUp()
 
@@ -38,7 +37,6 @@ final class StorageManagerTests: XCTestCase {
         let days: [Day] = try await sut.getAll()
         XCTAssertEqual(days.count, 500)
     }
-
 
     func testTextDocumentSaveLoadDelete() async throws {
         let doc = TextDocument(kind: .text, content: "this is a test")

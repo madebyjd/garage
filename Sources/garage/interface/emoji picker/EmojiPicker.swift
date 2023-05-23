@@ -19,8 +19,7 @@ struct BlurEffectView: UIViewRepresentable {
 
 #else
 
-struct BlurEffectView: NSViewRepresentable
-{
+struct BlurEffectView: NSViewRepresentable {
     public init(material: NSVisualEffectView.Material = .headerView, blendingMode: NSVisualEffectView.BlendingMode = .withinWindow) {
         self.material = material
         self.blendingMode = blendingMode
@@ -29,8 +28,7 @@ struct BlurEffectView: NSViewRepresentable
     let material: NSVisualEffectView.Material
     let blendingMode: NSVisualEffectView.BlendingMode
 
-    func makeNSView(context: Context) -> NSVisualEffectView
-    {
+    func makeNSView(context: Context) -> NSVisualEffectView {
         let visualEffectView = NSVisualEffectView()
         visualEffectView.material = .windowBackground
         visualEffectView.blendingMode = blendingMode
@@ -39,8 +37,7 @@ struct BlurEffectView: NSViewRepresentable
         return visualEffectView
     }
 
-    func updateNSView(_ visualEffectView: NSVisualEffectView, context: Context)
-    {
+    func updateNSView(_ visualEffectView: NSVisualEffectView, context: Context) {
         visualEffectView.material = material
         visualEffectView.blendingMode = blendingMode
     }
@@ -48,14 +45,13 @@ struct BlurEffectView: NSViewRepresentable
 
 #endif
 
-
 public struct EmojiPicker: View {
 
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible()),
-        GridItem(.flexible()),
+        GridItem(.flexible())
     ]
 
     var emojis: [Emoji] {
@@ -64,7 +60,7 @@ public struct EmojiPicker: View {
             return Emoji.list()
                 .filter { emoji in
                     let properties = emoji.value.unicodeScalars.map(\.properties)
-                    
+
                     guard properties.first(where: \.isEmojiModifier) != nil || properties.first(where: \.isGraphemeBase) != nil  else { return false }
 
                     return properties.first(where: \.isEmoji) != nil
@@ -112,7 +108,7 @@ public struct EmojiPicker: View {
     public var body: some View {
         ZStack(alignment: .top) {
 
-            ScrollView(.vertical){
+            ScrollView(.vertical) {
                 Spacer(minLength: topInset)
                     .frame(width: .infinity)
 
@@ -158,7 +154,7 @@ public struct EmojiPicker: View {
                     self.longSelectedEmoji = emoji
                     emojiOverlayTimer = Timer.TimerPublisher.init(interval: 3.0, runLoop: RunLoop.main, mode: .common)
                         .autoconnect()
-                        .sink() { _ in
+                        .sink { _ in
                             emojiOverlayTimer?.cancel()
                             self.longSelectedEmoji = nil
                         }
@@ -192,7 +188,6 @@ public struct EmojiPicker: View {
                 .textFieldStyle(RoundedTextFieldStyle(active: search.count > 0, color: Color.accentColor))
                 .font(.title3)
                 .focused($searchFocus)
-
 
             Button {
                 dismiss()

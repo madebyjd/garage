@@ -18,7 +18,6 @@ public protocol PostEditorDelegate {
     func didSave(video: Data, on day: Day, at time: Time)
 }
 
-
 public struct PostEditor: View {
 
     @ObservedObject var model = PostEditorViewModel()
@@ -30,7 +29,7 @@ public struct PostEditor: View {
     public init(delegate: PostEditorDelegate? = nil) {
         self.model.delegate = delegate
     }
-    
+
     var templates: [String] = PostEditor.default_templates
 
     var photoPickerConfiguration: PHPickerConfiguration {
@@ -39,7 +38,7 @@ public struct PostEditor: View {
         config.filter = PHPickerFilter.any(of: [.images])
         return config
     }
-    
+
     public var body: some View {
         VStack {
             HStack {
@@ -57,9 +56,9 @@ public struct PostEditor: View {
                     .foregroundColor(.appDarkGray)
                     .background(Color.appLightGray)
                     .cornerRadius(8.0)
-                
+
                 Spacer()
-                
+
                 SymbolButton(systemName: "list.bullet.circle") {
                     self.model.title = nil
                     self.model.isTakingMedia = false
@@ -67,7 +66,7 @@ public struct PostEditor: View {
                 }
                 .fontWeight(.thin)
                 .isHidden(self.model.title == nil)
-                
+
                 SymbolButton(systemName: "x.circle") {
                     self.model.camera.images = []
                     self.model.title = nil
@@ -119,7 +118,7 @@ public struct PostEditor: View {
                 #if os(iOS)
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(Array(self.model.camera.images.enumerated()), id: \.0.self) { (idx, image) in
+                        ForEach(Array(self.model.camera.images.enumerated()), id: \.0.self) { (_, image) in
                             Image(uiImage: image)
                                 .resizable()
                                 .frame(width: 25.0, height: 40.0)
@@ -137,7 +136,6 @@ public struct PostEditor: View {
                         .cornerRadius(10.0)
                 }
                 #endif
-
 
                 HStack {
                     SymbolButton(systemName: "trash.circle.fill") {
@@ -206,7 +204,7 @@ public struct PostEditor: View {
         }
         .padding(15.0)
     }
-    
+
     var textEntry: some View {
 
         TextEditor(text: self.$model.text)
@@ -232,25 +230,25 @@ public struct PostEditor: View {
                     .bold()
                     .leftAlign()
 
-                RoundedButton(color: .gray.opacity(0.6), text: "Blank Post"){
+                RoundedButton(color: .gray.opacity(0.6), text: "Blank Post") {
                     self.model.title = ""
                 }
                 .padding(.horizontal, 5.0)
 
-                RoundedButton(color: .blue.opacity(0.6), text: "Take Media"){
+                RoundedButton(color: .blue.opacity(0.6), text: "Take Media") {
                     self.model.title = "Take Media"
                     self.model.isTakingMedia = true
                 }
                 .padding(.horizontal, 5.0)
 
-                RoundedButton(color: .blue.opacity(0.6), text: "Select Media"){
+                RoundedButton(color: .blue.opacity(0.6), text: "Select Media") {
                     self.model.title = "Select Media"
                     self.model.isSelectingMedia = true
                 }
                 .padding(.horizontal, 5.0)
 
                 ForEach(self.templates, id: \.self) { template in
-                    RoundedButton(color: .orange.opacity(0.6), text: template){
+                    RoundedButton(color: .orange.opacity(0.6), text: template) {
                         self.model.title = template
                     }
                     .padding(.horizontal, 5.0)
@@ -285,7 +283,7 @@ extension PostEditor {
             "What did I learn today?",
             "What was the most fun thing I did today?",
             "What was the most surprising thing that happened today?",
-            "What did I do today that I am proud of?",
+            "What did I do today that I am proud of?"
         ]
     }
 }

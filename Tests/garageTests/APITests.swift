@@ -54,7 +54,6 @@ extension APITests {
             }
             .store(in: &pipelines)
 
-
         wait(for: [expectation], timeout: 10.0)
         XCTAssertNotNil(response)
         XCTAssert(response!.word == word)

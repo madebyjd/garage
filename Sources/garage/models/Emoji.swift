@@ -23,7 +23,6 @@ extension Emoji: Hashable {
             lhs.name == rhs.name
     }
 
-
     public func hash(into hasher: inout Hasher) {
         hasher.combine(value)
         hasher.combine(name)
@@ -68,7 +67,6 @@ extension Emoji {
                 return nil
             }
         }
-
 
         let allEmojis = all
             .compactMap { $0 }

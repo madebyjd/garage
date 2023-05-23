@@ -12,26 +12,26 @@ import PhotosUI
 
 @available(iOS 14.0, *)
 struct PhotosPickerSheet<Content: View>: View {
-    
+
     @Binding var isPresented: Bool
-    
+
     @State private var pickerViewController: PHPickerViewController
-    
+
     @State private var coordinator: Coordinator
-    
+
     private var content: Content
-    
+
     init(isPresented: Binding<Bool>, configuration: PHPickerConfiguration, onDismiss: (([PHPickerResult]) -> Void)?, content: Content) {
         let pickerViewController = PHPickerViewController(configuration: configuration)
         let coordinator = Coordinator(onPicking: onDismiss)
         pickerViewController.delegate =  coordinator
-        
+
         self._isPresented = isPresented
         self._pickerViewController = State(wrappedValue: pickerViewController)
         self._coordinator = State(wrappedValue: coordinator)
         self.content = content
     }
-    
+
     var body: some View {
         content
             .onChange(of: pickerViewController.isBeingPresented) { presenting in
@@ -54,9 +54,9 @@ struct PhotosPickerSheet<Content: View>: View {
 
 @available(iOS 14.0, *)
 private class Coordinator: PHPickerViewControllerDelegate {
-    
+
     let onPicking: (([PHPickerResult]) -> Void)?
-    
+
     init(onPicking: (([PHPickerResult]) -> Void)?) {
         self.onPicking = onPicking
     }
@@ -69,7 +69,7 @@ private class Coordinator: PHPickerViewControllerDelegate {
 
 @available(iOS 14.0, *)
 private extension UIApplication {
-    
+
     var topmostViewController: UIViewController? {
         var viewController = connectedScenes
             .filter { $0.activationState == .foregroundActive }
